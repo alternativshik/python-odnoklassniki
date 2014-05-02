@@ -34,7 +34,7 @@ class OdnoklassnikiError(Exception):
 
     def __str__(self):
         return "Error(code = '%s', description = '%s', method = '%s', params = '%s')" \
-            % (self.code, self.message, self.method, self.params)
+            % (self.code, str(self.message), self.method, self.params)
 
 
 def _encode(s):
@@ -67,7 +67,7 @@ class _API(object):
         if not (200 <= status <= 299):
             raise OdnoklassnikiError({
                 'code': status,
-                'text': u'HTTP error',
+                'text': 'HTTP error',
                 'method': method,
                 'params': kwargs,
             })
