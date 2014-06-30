@@ -112,7 +112,8 @@ class _API(object):
         params.update(kwargs)
         sig = self._signature(params)
         params['sig'] = sig
-        params['access_token'] = self.token
+        if self.token:
+            params['access_token'] = self.token
         headers = {"Accept": "application/json",
                    "Content-Type": "application/x-www-form-urlencoded"}
         try:
