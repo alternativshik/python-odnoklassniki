@@ -50,7 +50,7 @@ def _encode(s):
 def signature(application_secret, token, params):
     keys = sorted(params.keys())
     param_str = "".join(["%s=%s" % (str(key), _encode(params[key])) for key in keys])
-    param_str += md5(token + application_secret).hexdigest()
+    param_str += application_secret
     return md5(param_str).hexdigest().lower()
 
 
