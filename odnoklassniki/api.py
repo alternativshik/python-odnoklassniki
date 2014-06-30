@@ -71,7 +71,7 @@ class _API(object):
                 'method': method,
                 'params': kwargs,
             })
-        if "error_code" in response:
+        if isinstance(response, dict) and "error_code" in response:
             raise OdnoklassnikiError({
                     'code': response.get('error_code'),
                     'text': response.get('error_msg'),
