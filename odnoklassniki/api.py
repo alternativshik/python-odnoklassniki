@@ -133,4 +133,6 @@ class Odnoklassniki(_API):
     def __init__(self, application_key=None, application_secret=None, token=None):
         if not (application_key or application_secret or token):  # None or empty string
             raise ValueError("Api key required")
-        _API.__init__(self, application_key=application_key, application_secret=application_secret, token=token, data_format='json')
+        _API.__init__(self, application_key=application_key,
+                      application_secret=application_secret,
+                      token=token, data_format='json')
