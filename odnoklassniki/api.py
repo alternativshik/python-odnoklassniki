@@ -50,7 +50,7 @@ def _encode(s):
 def signature(application_secret, token, params):
     keys = sorted(params.keys())
     param_str = "".join(["%s=%s" % (str(key), _encode(params[key])) for key in keys])
-    param_str += md5(token + application_secret).hexdigest()
+    param_str += application_secret
     return md5(param_str).hexdigest().lower()
 
 
@@ -71,7 +71,7 @@ class _API(object):
                 'method': method,
                 'params': kwargs,
             })
-        if "error_code" in response:
+        if isinstance(response, dict) and "error_code" in response:
             raise OdnoklassnikiError({
                     'code': response.get('error_code'),
                     'text': response.get('error_msg'),
@@ -112,7 +112,8 @@ class _API(object):
         params.update(kwargs)
         sig = self._signature(params)
         params['sig'] = sig
-        params['access_token'] = self.token
+        if self.token:
+            params['access_token'] = self.token
         headers = {"Accept": "application/json",
                    "Content-Type": "application/x-www-form-urlencoded"}
         try:
