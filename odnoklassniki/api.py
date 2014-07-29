@@ -48,9 +48,10 @@ def _encode(s):
 
 
 def signature(application_secret, token, params):
+    # oAuth2 http://apiok.ru/wiki/pages/viewpage.action?pageId=42476652
     keys = sorted(params.keys())
     param_str = "".join(["%s=%s" % (str(key), _encode(params[key])) for key in keys])
-    param_str += application_secret
+    param_str += md5(token + application_secret).hexdigest()
     return md5(param_str).hexdigest().lower()
 
 
