@@ -3,7 +3,7 @@ from distutils.core import setup
 
 setup(
     name='odnoklassniki',
-    version='0.9.1',
+    version='0.9.2',
     description='Odnoklassniki API wrapper for python',
     author='Sergey Maltsev',
     author_email='alternativshik@gmail.com',
