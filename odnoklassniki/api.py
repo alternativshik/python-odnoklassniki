@@ -1,14 +1,12 @@
 # -*- coding: utf-8 -*-
 from hashlib import md5
 import requests
-import json
+
 
 # Тут урл надо брать из ответа на запрос
 # В данный момент он дефолтный
 API_URL = 'http://api.odnoklassniki.ru/fb.do'
 DEFAULT_TIMEOUT = 30
-REQUEST_ENCODING = 'utf8'
-
 
 class OdnoklassnikiError(Exception):
     __slots__ = ["error"]
@@ -37,22 +35,12 @@ class OdnoklassnikiError(Exception):
             % (self.code, str(self.message), self.method, self.params)
 
 
-def _encode(s):
-    if isinstance(s, (dict, list, tuple)):
-        s = json.dumps(s, ensure_ascii=False, encoding=REQUEST_ENCODING)
-
-    if isinstance(s, unicode):
-        s = s.encode(REQUEST_ENCODING)
-
-    return s # this can be number, etc.
-
-
 def signature(application_secret, token, params):
     # oAuth2 http://apiok.ru/wiki/pages/viewpage.action?pageId=42476652
     keys = sorted(params.keys())
-    param_str = "".join(["%s=%s" % (str(key), _encode(params[key])) for key in keys])
-    param_str += md5(token + application_secret).hexdigest()
-    return md5(param_str).hexdigest().lower()
+    param_str = "".join(["%s=%s" % (key, params[key]) for key in keys])
+    param_str += md5(token.encode('utf-8') + application_secret.encode('utf-8')).hexdigest()
+    return md5(param_str.encode('utf-8')).hexdigest().lower()
 
 
 class _API(object):
@@ -103,8 +91,7 @@ class _API(object):
         return signature(self.application_secret, self.token, params)
 
     def _request(self, method, timeout=DEFAULT_TIMEOUT, **kwargs):
-        for key, value in kwargs.iteritems():
-            kwargs[key] = _encode(value)
+
         params = {
             'application_key': self.application_key,
             'format': self.data_format,
