@@ -2,6 +2,7 @@ __author__ = 'mark'
 import unittest
 from odnoklassniki import signature
 
+
 class TestSignature(unittest.TestCase):
 
     def test_signature(self):
