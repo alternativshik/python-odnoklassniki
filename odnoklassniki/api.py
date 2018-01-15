@@ -39,7 +39,7 @@ def signature(application_secret, token, params):
     # oAuth2 http://apiok.ru/wiki/pages/viewpage.action?pageId=42476652
     keys = sorted(params.keys())
     param_str = "".join(["%s=%s" % (key, params[key]) for key in keys])
-    param_str += token + application_secret
+    param_str += md5((token + application_secret).encode('utf-8')).hexdigest()
     return md5(param_str.encode('utf-8')).hexdigest().lower()
 
 
