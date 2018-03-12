@@ -3,9 +3,9 @@ from distutils.core import setup
 
 setup(
     name='odnoklassniki',
-    version='0.9.2',
-    description='Odnoklassniki API wrapper for python',
-    author='Sergey Maltsev',
+    version='1.0',
+    description='Odnoklassniki API wrapper',
+    author='Serhii Maltsev',
     author_email='alternativshik@gmail.com',
     url='https://github.com/alternativshik/python-odnoklassniki',
     download_url='https://pypi.python.org/pypi/odnoklassniki/',
