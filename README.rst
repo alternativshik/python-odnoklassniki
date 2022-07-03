@@ -22,7 +22,7 @@ Usage
 
     >>> import odnoklassniki
     >>> ok = odnoklassniki.Odnoklassniki(client_key, client_secret, access_token)
-    >>> ok.group.getInfo('uids'='your_group_id', 'fields'='members_count')
+    >>> ok.group.getInfo(uids='your_group_id', fields='members_count')
     1282
 
 .. image:: https://badges.gitter.im/alternativshik/python-odnoklassniki.svg
